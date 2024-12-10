@@ -11,10 +11,7 @@
 
 <script setup>
 import { ref } from "vue";
-import MyButton from "./MyButton.vue";
-import Father from "./Father.vue";
 import useGlobal from "./hooks/useGlobal";
-import XModal from "./plugins/modal/XModal.vue";
 
 // 组件引用
 const { $modal } = useGlobal();
@@ -23,18 +20,20 @@ const email = ref("zhangsan@example.com");
 
 // 打开 Modal 的事件处理函数
 const handleShowModal = () => {
-  $modal.open({
-    title: "创建banner",
-    width: "600px",
-    data: {
-      name,
-      email,
-    },
-    component: () => import("./CreateBanner.vue"),
-  });
-  // .then((v) => {
-  //   console.log("v", v);
-  // });
+  $modal
+    .open({
+      title: "创建banner",
+      width: "600px",
+      data: {
+        name,
+        email,
+      },
+      component: () => import("./CreateBanner.vue"),
+    })
+    .then((v) => {
+      name.value = v.name;
+      email.value = v.email;
+    });
 };
 </script>
 

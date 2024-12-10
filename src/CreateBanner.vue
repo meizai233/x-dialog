@@ -33,8 +33,9 @@ const form = ref({
 });
 
 const onOk = () => {
-  console.log("form", form);
-  return form;
+  // 提交前的处理逻辑
+
+  return form.value;
 };
 
 // 在组件挂载后初始化 form 的值

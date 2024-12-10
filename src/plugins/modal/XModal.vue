@@ -41,16 +41,18 @@ const app = instance.appContext.app; // 获取全局 app 实例
 const wraps = app?._instance?.refs?.wraps;
 const emit = defineEmits(["update:isShow"]);
 const child = ref(null);
-const childResult = ref(null);
 const content = defineAsyncComponent(props.option.component);
 
 const onOk = async () => {
-  // 一般情况下做什么：拿到子组件的数据 提交
-  // props.option?.onOk();
+  let childResult;
+
+  // 先调用子组件的onOk事件
   if (child.value?.onOk) {
-    childResult.value = await child.value.onOk();
+    childResult = await child.value.onOk();
   }
-  wraps.removeDialog(childResult.value);
+
+  props.option?.resolve(childResult);
+  wraps.removeDialog();
 };
 
 const onCancel = async () => {
