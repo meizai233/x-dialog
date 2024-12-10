@@ -2,7 +2,12 @@
   <!-- 存放wrap组件  -->
   <!-- wrap 接收 dialog key -->
   <!-- <x-dialog-wrap v-for="dialog in dialogs" :key="dialog.seq"> </x-dialog-wrap> -->
-  <x-modal v-for="dialog in dialogs" :key="dialog.seq" :option="dialog"></x-modal>
+  <x-modal
+    v-for="dialog in dialogs"
+    :key="dialog.seq"
+    :option="dialog"
+    v-model:isShow="dialog.isShow"
+  ></x-modal>
 </template>
 
 <script setup>
@@ -16,16 +21,12 @@ const { $modal } = useGlobal();
 // wraps 管理dialogs的添加移除
 // wrap 管理dialog的挂载
 // dialog 管理 展示dialog
-
-// interface Dialog {}
-
-// todo dialog的形状是什么
 const addDialog = (dialog) => {
-  debugger;
   dialogs.push(dialog);
 };
 
-const removeDialog = () => {
+const removeDialog = (val) => {
+  console.log("val", val);
   dialogs.pop();
 };
 // 把方法绑定到全局 可以使用

@@ -1,5 +1,12 @@
 # x-dialog
 
+# 目标业务
+
+[x] 全局唤出单例 modal 组件
+[x] 给弹窗传递自定义值（标题 内容 onOk，onConfirm）
+[ ] 弹窗给父组件回传值
+[ ] 管理多个弹窗，实现弹窗之间的嵌套
+
 ## Project setup
 
 ```
