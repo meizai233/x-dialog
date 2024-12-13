@@ -7,6 +7,9 @@ export default {
     // 全局注册组件
     app.component("XDialogWraps", XDialogWraps);
 
+    // 用一个变量存储dialog的编号
+    let dialogCount = 0;
+
     app.config.globalProperties.$modal = {
       open: (options) => {
         const p = new Promise((resolve, reject) => {
@@ -20,7 +23,7 @@ export default {
             resolve,
             reject,
             isShow: true,
-            seq: 1,
+            seq: dialogCount++,
           };
 
           // 拿到wraps实例

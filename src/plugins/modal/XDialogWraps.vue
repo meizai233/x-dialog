@@ -8,6 +8,7 @@
     :option="dialog"
     v-model:isShow="dialog.isShow"
   ></x-modal>
+  <!-- <p v-for="dialog in dialogs" :key="dialog.seq">{{ dialog }}</p> -->
 </template>
 
 <script setup>

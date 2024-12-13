@@ -2,7 +2,7 @@
   <div class="banner">
     <h2>{{ message }}</h2>
 
-    <form @submit.prevent="handleSubmit">
+    <form>
       <div class="form-group">
         <label for="name">名字：</label>
         <input type="text" v-model="form.name" id="name" placeholder="请输入您的名字" required />
@@ -19,6 +19,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import useGlobal from "./hooks/useGlobal";
 
 const props = defineProps({
   data: {
@@ -32,9 +33,15 @@ const form = ref({
   email: "",
 });
 
-const onOk = () => {
-  // 提交前的处理逻辑
+const { $modal } = useGlobal();
 
+const onOk = async () => {
+  // 提交前的处理逻辑
+  await $modal.open({
+    title: "创建banner",
+    width: "300px",
+    component: () => import("./ConfirmSubmit.vue"),
+  });
   return form.value;
 };
 
@@ -43,15 +50,6 @@ onMounted(() => {
   form.value.name = props.data.name || "";
   form.value.email = props.data.email || "";
 });
-
-const handleSubmit = () => {
-  // 打印表单数据到控制台，实际应用中可以发送到后端
-  console.log("提交的表单数据:", form.value);
-
-  // 清空表单
-  form.value.name = "";
-  form.value.email = "";
-};
 
 defineExpose({
   form,
